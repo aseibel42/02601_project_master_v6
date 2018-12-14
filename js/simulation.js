@@ -67,8 +67,7 @@ var config = {
 };
 
 var simCanvas;
-var canvasWidth = 945;
-var canvasHeight = 650;
+var canvasWidth, canvasHeight;
 
 var paused = false;
 
@@ -78,6 +77,8 @@ var generationTimer = 0;
 var newGeneration = false;
 
 function setup() {
+  canvasWidth = document.getElementById("simulation-canvas").clientWidth;
+  canvasHeight = window.innerHeight;
   simCanvas = createCanvas(canvasWidth, canvasHeight);
   simCanvas.parent("simulation-canvas");
 
@@ -126,5 +127,13 @@ function displayFPS() {
 
 // Draws the current generation in the top right corner of the canvas
 function displayGeneration() {
-  text("Generation: " + world.generation.toString(), 0.9*canvasWidth, 0.005*canvasHeight, 100, 50)
+  text("Generation: " + world.generation.toString(), canvasWidth - 100, 0.005*canvasHeight, 100, 50)
+}
+
+function windowResized() {
+  canvasWidth = document.getElementById("simulation-canvas").clientWidth;
+  canvasHeight = window.innerHeight;
+  resizeCanvas(canvasWidth, canvasHeight);
+
+
 }
